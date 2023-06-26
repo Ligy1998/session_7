@@ -22,6 +22,8 @@ for ( i in 1:num_weeks ) {
   if ( proposal > 10 ) proposal <- 1
   prob_move <- proposal/current
   current <- ifelse( runif(1) < prob_move , proposal , current )
+# It checks if a random number from a uniform distribution (runif(1)) is less than prob_move. 
+# If it is, the walker moves to the proposed island (proposal), otherwise, the current position remains unchanged.
 }
 
 positions[1:100]
@@ -61,7 +63,7 @@ ggplot(samples, aes(x=samples)) +
 # set_cmdstan_path("C:/Users/ge84jux/cmdstan-2.30.1")
 
 # load data
-shaq <- read_csv("data/shaq.csv")
+shaq <- read_csv("shaq.csv")
 
 # step 1: prepare data 
 dat <- list( # Stan requires a list of the data 
@@ -76,7 +78,7 @@ dat <- list( # Stan requires a list of the data
 )
 
 # step 2 and 3: specify and fit the Stan model 
-m1shaq <- stan("code/Stan/session_7_m1shaq.stan", 
+m1shaq <- stan("session_7_m1shaq.stan", 
                data=dat, 
                chains = 4, 
                cores = 4, 
@@ -92,7 +94,7 @@ traceplot(m1shaq)
 # Mediation / Pipe example
 
 # step 3: Fit the model
-m2shaq <- stan("code/Stan/session_7_m2shaq.stan", 
+m2shaq <- stan("session_7_m2shaq.stan", 
                data=dat, 
                chains = 4, 
                cores = 4, 
